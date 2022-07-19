@@ -127,7 +127,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CreditCardsController.cs" />
+    <Compile Include="Controllers\DimensionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostersController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\PosterManiaContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -218,6 +222,26 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Posters\Create.cshtml" />
+    <Content Include="Views\Posters\Delete.cshtml" />
+    <Content Include="Views\Posters\Details.cshtml" />
+    <Content Include="Views\Posters\Edit.cshtml" />
+    <Content Include="Views\Posters\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\CreditCards\Create.cshtml" />
+    <Content Include="Views\CreditCards\Delete.cshtml" />
+    <Content Include="Views\CreditCards\Details.cshtml" />
+    <Content Include="Views\CreditCards\Edit.cshtml" />
+    <Content Include="Views\CreditCards\Index.cshtml" />
+    <Content Include="Views\Dimensions\Create.cshtml" />
+    <Content Include="Views\Dimensions\Delete.cshtml" />
+    <Content Include="Views\Dimensions\Details.cshtml" />
+    <Content Include="Views\Dimensions\Edit.cshtml" />
+    <Content Include="Views\Dimensions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
