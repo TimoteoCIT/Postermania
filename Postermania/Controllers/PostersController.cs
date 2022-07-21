@@ -47,9 +47,12 @@ namespace Postermania.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,BasePrice,PricePerCm,type,Image")] Poster poster)
+        public ActionResult Create(Poster poster)
         {
-            if (ModelState.IsValid)
+            HttpPostedFileBase image = Request.Files["ImageData"];
+            poster.Image = Util.Images.ReadImage(image);
+
+            //if (ModelState.IsValid)
             {
                 db.Posters.Add(poster);
                 db.SaveChanges();
