@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.type)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Image)
+            <img src="/Posters/RetrieveImage/@item.ID"/>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

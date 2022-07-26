@@ -119,6 +119,13 @@ namespace Postermania.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Posters/RetrieveImage/5
+        public ActionResult RetrieveImage(int id)
+        {
+            Poster poster = db.Posters.Find(id);
+            return File(poster.Image, "image");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
