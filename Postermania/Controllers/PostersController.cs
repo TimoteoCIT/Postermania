@@ -11,6 +11,13 @@ using Postermania.Models;
 
 namespace Postermania.Controllers
 {
+    public class PosterView
+    {
+        public Poster Poster { get; set; }
+        public List<Dimension> Dimensions { get; set; }
+    }
+
+    // https://www.c-sharpcorner.com/article/crud-using-asp-net-mvc-5-entity-framework/
     public class PostersController : Controller
     {
         private PosterManiaContext db = new PosterManiaContext();
@@ -18,7 +25,7 @@ namespace Postermania.Controllers
         // GET: Posters
         public ActionResult Index()
         {
-            return View(db.Posters.ToList());
+            return View(db.Posters.Include(x=>x.Dimensions).ToList());
         }
 
         // GET: Posters/Details/5
@@ -74,7 +81,14 @@ namespace Postermania.Controllers
             {
                 return HttpNotFound();
             }
-            return View(poster);
+
+            var posterView = new PosterView()
+            {
+                Poster = poster,
+                Dimensions = db.Dimensions.ToList()
+            };
+
+            return View(posterView);
         }
 
         // POST: Posters/Edit/5

@@ -24,34 +24,44 @@
             @Html.DisplayNameFor(model => model.type)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Dimensions)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Image)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BasePrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PricePerCm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.type)
-        </td>
-        <td>
-            <img src="/Posters/RetrieveImage/@item.ID"/>
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PricePerCm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @foreach (var dim in item.Dimensions)
+                {
+                    @dim.Width <span>x</span> @dim.Height
+                }
+            </td>
+            <td>
+                <img src="/Posters/RetrieveImage/@item.ID" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
