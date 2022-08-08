@@ -180,10 +180,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Posters\Create.cshtml" />
     <Content Include="Views\Posters\Delete.cshtml" />
-    <Content Include="Views\Posters\Details.cshtml" />
-    <Content Include="Views\Posters\Edit.cshtml" />
+    <Content Include="Views\Posters\Form.cshtml" />
     <Content Include="Views\Posters\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />

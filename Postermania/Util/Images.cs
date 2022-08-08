@@ -15,6 +15,10 @@ namespace Postermania.Util
 
             //if (image == null || image.ContentLength == 0) 
             //    throw new ArgumentException("Image can not be null or empty");
+            if (image == null)
+            {
+                return null;
+            }
 
             var reader = new BinaryReader(image.InputStream);
             bytes = reader.ReadBytes((int)image.ContentLength);
