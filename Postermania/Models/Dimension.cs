@@ -11,5 +11,10 @@ namespace Postermania.Models
         public int Width { get; set; }
         public int Height { get; set; }
         public List<Poster> Posters { get; set; }
+
+        public string Name
+        {
+            get { return $"{Width}x{Height}"; }
+        }
     }
 }

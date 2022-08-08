@@ -11,6 +11,13 @@ using Postermania.Models;
 
 namespace Postermania.Controllers
 {
+    public class PosterView
+    {
+        public Poster Poster { get; set; }
+        public List<Dimension> Dimensions { get; set; }
+    }
+
+    // https://www.c-sharpcorner.com/article/crud-using-asp-net-mvc-5-entity-framework/
     public class PostersController : Controller
     {
         private PosterManiaContext db = new PosterManiaContext();
@@ -18,45 +25,50 @@ namespace Postermania.Controllers
         // GET: Posters
         public ActionResult Index()
         {
-            return View(db.Posters.ToList());
-        }
-
-        // GET: Posters/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Poster poster = db.Posters.Find(id);
-            if (poster == null)
-            {
-                return HttpNotFound();
-            }
-            return View(poster);
+            return View(db.Posters.Include(x => x.Dimensions).ToList());
         }
 
         // GET: Posters/Create
         public ActionResult Create()
         {
-            return View();
+            var posterView = new PosterView()
+            {
+                Poster = new Poster(),
+                Dimensions = db.Dimensions.ToList()
+            };
+            return View("Form", posterView);
         }
 
-        // POST: Posters/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Posters/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,BasePrice,PricePerCm,type,Image")] Poster poster)
+        public ActionResult Save(Poster poster)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Posters.Add(poster);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Create");
             }
 
-            return View(poster);
+            HttpPostedFileBase image = Request.Files["ImageData"];
+            poster.Image = Util.Images.ReadImage(image);
+
+            if (poster.ID == 0)
+                db.Posters.Add(poster);
+            else
+            {
+                var posterDb = db.Posters.FirstOrDefault(x => x.ID == poster.ID);
+                posterDb.ID = poster.ID;
+                posterDb.Name = poster.Name;
+                posterDb.BasePrice = poster.BasePrice;
+                posterDb.BasePrice = poster.BasePrice;
+                posterDb.PricePerCm = poster.PricePerCm;
+                posterDb.type = poster.type;
+                posterDb.Image = poster.Image;
+                posterDb.Dimensions = poster.Dimensions;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Posters/Edit/5
@@ -71,23 +83,14 @@ namespace Postermania.Controllers
             {
                 return HttpNotFound();
             }
-            return View(poster);
-        }
 
-        // POST: Posters/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,BasePrice,PricePerCm,type,Image")] Poster poster)
-        {
-            if (ModelState.IsValid)
+            var posterView = new PosterView()
             {
-                db.Entry(poster).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(poster);
+                Poster = poster,
+                Dimensions = db.Dimensions.ToList()
+            };
+
+            return View("Form", posterView);
         }
 
         // GET: Posters/Delete/5
@@ -114,6 +117,13 @@ namespace Postermania.Controllers
             db.Posters.Remove(poster);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Posters/RetrieveImage/5
+        public ActionResult RetrieveImage(int id)
+        {
+            Poster poster = db.Posters.Find(id);
+            return File(poster.Image, "image");
         }
 
         protected override void Dispose(bool disposing)
