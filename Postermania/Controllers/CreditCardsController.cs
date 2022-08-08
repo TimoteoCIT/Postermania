@@ -21,42 +21,10 @@ namespace Postermania.Controllers
             return View(db.CreditCards.ToList());
         }
 
-        // GET: CreditCards/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CreditCard creditCard = db.CreditCards.Find(id);
-            if (creditCard == null)
-            {
-                return HttpNotFound();
-            }
-            return View(creditCard);
-        }
-
         // GET: CreditCards/Create
         public ActionResult Create()
         {
-            return View();
-        }
-
-        // POST: CreditCards/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Brand,Number,Secret")] CreditCard creditCard)
-        {
-            if (ModelState.IsValid)
-            {
-                db.CreditCards.Add(creditCard);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(creditCard);
+            return View("Form", new CreditCard());
         }
 
         // GET: CreditCards/Edit/5
@@ -71,23 +39,32 @@ namespace Postermania.Controllers
             {
                 return HttpNotFound();
             }
-            return View(creditCard);
+            return View("Form", creditCard);
         }
 
-        // POST: CreditCards/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: CreditCards/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Brand,Number,Secret")] CreditCard creditCard)
+        public ActionResult Save([Bind(Include = "ID,Brand,Number,Secret")] CreditCard creditCard)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(creditCard).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
-            return View(creditCard);
+
+            if (creditCard.ID == 0)
+                db.CreditCards.Add(creditCard);
+            else
+            {
+                var creditCardDB = db.CreditCards.FirstOrDefault(x => x.ID == creditCard.ID);
+                creditCardDB.ID = creditCard.ID;
+                creditCardDB.Number = creditCard.Number;
+                creditCardDB.Secret = creditCard.Secret;
+                creditCardDB.Brand = creditCard.Brand;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: CreditCards/Delete/5

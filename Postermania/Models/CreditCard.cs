@@ -7,8 +7,6 @@ namespace Postermania.Models
 {
     public enum CardBrand
     {
-        BAC,
-        BCR,
         MasterCard,
         Visa,
         AmericanExpress

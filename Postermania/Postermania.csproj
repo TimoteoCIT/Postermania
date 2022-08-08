@@ -141,6 +141,10 @@
     <Compile Include="Migrations\202207191824582_InitialCreate.designer.cs">
       <DependentUpon>202207191824582_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208081853523_Password To Plaintex.cs" />
+    <Compile Include="Migrations\202208081853523_Password To Plaintex.designer.cs">
+      <DependentUpon>202208081853523_Password To Plaintex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CreditCard.cs" />
     <Compile Include="Models\Dimension.cs" />
@@ -183,20 +187,14 @@
     <Content Include="Views\Posters\Delete.cshtml" />
     <Content Include="Views\Posters\Form.cshtml" />
     <Content Include="Views\Posters\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Form.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\CreditCards\Create.cshtml" />
+    <Content Include="Views\CreditCards\Form.cshtml" />
     <Content Include="Views\CreditCards\Delete.cshtml" />
-    <Content Include="Views\CreditCards\Details.cshtml" />
-    <Content Include="Views\CreditCards\Edit.cshtml" />
     <Content Include="Views\CreditCards\Index.cshtml" />
-    <Content Include="Views\Dimensions\Create.cshtml" />
+    <Content Include="Views\Dimensions\Form.cshtml" />
     <Content Include="Views\Dimensions\Delete.cshtml" />
-    <Content Include="Views\Dimensions\Details.cshtml" />
-    <Content Include="Views\Dimensions\Edit.cshtml" />
     <Content Include="Views\Dimensions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +207,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202207191824582_InitialCreate.resx">
       <DependentUpon>202207191824582_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208081853523_Password To Plaintex.resx">
+      <DependentUpon>202208081853523_Password To Plaintex.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

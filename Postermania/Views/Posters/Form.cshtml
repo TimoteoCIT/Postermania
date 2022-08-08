@@ -49,9 +49,9 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(model => model.Dimensions, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @* How do I do this for a list??? *@
-            @Html.LabelFor(model => model.Dimensions, htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.DropDownListFor(model => model.Poster.Dimensions, new SelectList(Model.Dimensions, "ID", "Name"), new { @class = "form-control" })
         </div>
     </div>
