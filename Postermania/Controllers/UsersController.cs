@@ -15,6 +15,7 @@ namespace Postermania.Controllers
     {
         public User User { get; set; }
         public List<CreditCard> CreditCards { get; set; }
+        public int SelectedCreditCardID { get; set; }
     }
 
     public class UsersController : Controller
@@ -63,22 +64,19 @@ namespace Postermania.Controllers
         // POST: Users/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save([Bind(Include = "ID,UserName,Password,IsAdmin")] User user)
+        public ActionResult Save(UserView userView)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Create");
-            }
+            userView.User.CreditCard = db.CreditCards.First(creditCard => creditCard.ID == userView.SelectedCreditCardID);
 
-            if (user.ID == 0)
-                db.Users.Add(user);
+            if (userView.User.ID == 0)
+                db.Users.Add(userView.User);
             else { 
-                var userDb = db.Users.FirstOrDefault(x => x.ID == user.ID);
-                userDb.ID = user.ID;
-                userDb.UserName = user.UserName;
-                userDb.Password = user.Password;
-                userDb.IsAdmin = user.IsAdmin;
-                userDb.CreditCard = user.CreditCard;
+                var userDb = db.Users.FirstOrDefault(x => x.ID == userView.User.ID);
+                userDb.ID = userView.User.ID;
+                userDb.UserName = userView.User.UserName;
+                userDb.Password = userView.User.Password;
+                userDb.IsAdmin = userView.User.IsAdmin;
+                userDb.CreditCard = userView.User.CreditCard;
             }
 
             db.SaveChanges();
