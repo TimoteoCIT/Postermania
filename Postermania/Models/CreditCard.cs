@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,8 +8,6 @@ namespace Postermania.Models
 {
     public enum CardBrand
     {
-        BAC,
-        BCR,
         MasterCard,
         Visa,
         AmericanExpress
@@ -18,6 +17,7 @@ namespace Postermania.Models
     {
         public int ID { get; set; }
         public CardBrand Brand { get; set; }
+        [CreditCardAttribute]
         public int Number { get; set; }
         public int Secret { get; set; }
     }

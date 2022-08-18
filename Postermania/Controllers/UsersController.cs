@@ -11,6 +11,13 @@ using Postermania.Models;
 
 namespace Postermania.Controllers
 {
+    public class UserView
+    {
+        public User User { get; set; }
+        public List<CreditCard> CreditCards { get; set; }
+        public int SelectedCreditCardID { get; set; }
+    }
+
     public class UsersController : Controller
     {
         private PosterManiaContext db = new PosterManiaContext();
@@ -18,45 +25,18 @@ namespace Postermania.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
-        }
-
-        // GET: Users/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            return View(db.Users.Include(x => x.CreditCard).ToList());
         }
 
         // GET: Users/Create
         public ActionResult Create()
         {
-            return View();
-        }
-
-        // POST: Users/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserName,Password,IsAdmin")] User user)
-        {
-            if (ModelState.IsValid)
+            var userView = new UserView()
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(user);
+                User = new User(),
+                CreditCards = db.CreditCards.ToList()
+            };
+            return View("Form", userView);
         }
 
         // GET: Users/Edit/5
@@ -71,23 +51,36 @@ namespace Postermania.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+
+            var userView = new UserView()
+            {
+                User = user,
+                CreditCards = db.CreditCards.ToList()
+            };
+
+            return View("Form", userView);
         }
 
-        // POST: Users/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Users/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserName,Password,IsAdmin")] User user)
+        public ActionResult Save(UserView userView)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            userView.User.CreditCard = db.CreditCards.First(creditCard => creditCard.ID == userView.SelectedCreditCardID);
+
+            if (userView.User.ID == 0)
+                db.Users.Add(userView.User);
+            else { 
+                var userDb = db.Users.FirstOrDefault(x => x.ID == userView.User.ID);
+                userDb.ID = userView.User.ID;
+                userDb.UserName = userView.User.UserName;
+                userDb.Password = userView.User.Password;
+                userDb.IsAdmin = userView.User.IsAdmin;
+                userDb.CreditCard = userView.User.CreditCard;
             }
-            return View(user);
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Users/Delete/5

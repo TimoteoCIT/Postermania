@@ -39,6 +39,28 @@ namespace Postermania.Controllers
             return View("Form", posterView);
         }
 
+        // GET: Posters/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Poster poster = db.Posters.Find(id);
+            if (poster == null)
+            {
+                return HttpNotFound();
+            }
+
+            var posterView = new PosterView()
+            {
+                Poster = poster,
+                Dimensions = db.Dimensions.ToList()
+            };
+
+            return View("Form", posterView);
+        }
+
         // POST: Posters/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,35 +84,13 @@ namespace Postermania.Controllers
                 posterDb.BasePrice = poster.BasePrice;
                 posterDb.BasePrice = poster.BasePrice;
                 posterDb.PricePerCm = poster.PricePerCm;
-                posterDb.type = poster.type;
+                posterDb.Type = poster.Type;
                 posterDb.Image = poster.Image;
                 posterDb.Dimensions = poster.Dimensions;
             }
 
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        // GET: Posters/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Poster poster = db.Posters.Find(id);
-            if (poster == null)
-            {
-                return HttpNotFound();
-            }
-
-            var posterView = new PosterView()
-            {
-                Poster = poster,
-                Dimensions = db.Dimensions.ToList()
-            };
-
-            return View("Form", posterView);
         }
 
         // GET: Posters/Delete/5

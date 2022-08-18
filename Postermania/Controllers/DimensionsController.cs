@@ -21,42 +21,10 @@ namespace Postermania.Controllers
             return View(db.Dimensions.ToList());
         }
 
-        // GET: Dimensions/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Dimension dimension = db.Dimensions.Find(id);
-            if (dimension == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dimension);
-        }
-
         // GET: Dimensions/Create
         public ActionResult Create()
         {
-            return View();
-        }
-
-        // POST: Dimensions/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Width,Height")] Dimension dimension)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Dimensions.Add(dimension);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(dimension);
+            return View("Form", new Dimension());
         }
 
         // GET: Dimensions/Edit/5
@@ -71,23 +39,31 @@ namespace Postermania.Controllers
             {
                 return HttpNotFound();
             }
-            return View(dimension);
+            return View("Form", dimension);
         }
 
-        // POST: Dimensions/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Dimensions/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Width,Height")] Dimension dimension)
+        public ActionResult Save([Bind(Include = "ID,Width,Height")] Dimension dimension)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(dimension).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
-            return View(dimension);
+
+            if (dimension.ID == 0)
+                db.Dimensions.Add(dimension);
+            else
+            {
+                var dimensionDB = db.Dimensions.FirstOrDefault(x => x.ID == dimension.ID);
+                dimensionDB.ID = dimension.ID;
+                dimensionDB.Width = dimension.Width;
+                dimensionDB.Height = dimension.Height;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Dimensions/Delete/5
