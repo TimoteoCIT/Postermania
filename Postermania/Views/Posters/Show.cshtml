@@ -1,0 +1,21 @@
+﻿@model List<Postermania.Models.Poster>
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<div class="show-grid">
+    @foreach (var poster in Model)
+    {
+        <div class="card" style="">
+            <img src="/Posters/RetrieveImage/@poster.ID" class="card-img-top"/>
+            <div class="card-body">
+                <h5 class="card-title">@poster.Name</h5>
+                <p class="card-text">Description here</p>
+                <a href="/Posters/Buy/@poster.ID" class="btn btn-primary">Buy</a>
+            </div>
+        </div>
+    }
+</div>

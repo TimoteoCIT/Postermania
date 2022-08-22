@@ -30,7 +30,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <p><a class="btn btn-primary mt-3" href="/Posters/View/@Postermania.Models.ItemType.Poster">Ver mas &raquo;</a></p>
+        <p>@Html.ActionLink("Ver mas", "Show", "Posters", new { posterType = Postermania.Models.ItemType.Poster }, new { @class = "btn btn-primary mt-3" })</p>
     </div>
 
     <div class="col-md-4">
@@ -53,7 +53,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <p><a class="btn btn-primary mt-3" href="/Posters/View/@Postermania.Models.ItemType.Scroll">Ver mas &raquo;</a></p>
+        <p>@Html.ActionLink("Ver mas", "Show", "Posters", new { posterType = Postermania.Models.ItemType.Scroll }, new { @class = "btn btn-primary mt-3" })</p>
     </div>
 
     <div class="col-md-4">
@@ -76,6 +76,6 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <p><a class="btn btn-primary mt-3" href="/Posters/View/@Postermania.Models.ItemType.Framed">Ver mas &raquo;</a></p>
+        <p>@Html.ActionLink("Ver mas", "Show", "Posters", new { posterType = Postermania.Models.ItemType.Framed }, new { @class = "btn btn-primary mt-3" })</p>
     </div>
 </div>

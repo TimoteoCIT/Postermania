@@ -119,6 +119,26 @@ namespace Postermania.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Show(ItemType? posterType)
+        {
+            List<Poster> items;
+            if (posterType != null) items = db.Posters.Where(x => x.Type == posterType).ToList();
+            else                    items = db.Posters.ToList();
+
+            return View(items);
+        }
+
+        public ActionResult Buy()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("Buy")]
+        public ActionResult BuyConfirm()
+        {
+            return View();
+        }
+
         // GET: Posters/RetrieveImage/5
         public ActionResult RetrieveImage(int id)
         {
