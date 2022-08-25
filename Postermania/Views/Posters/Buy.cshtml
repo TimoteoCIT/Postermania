@@ -1,0 +1,23 @@
+﻿@model Postermania.Models.Poster
+@{
+    ViewBag.Title = "Buy";
+}
+
+<h2>Detail</h2>
+
+<div class="row">
+    <div class="col">
+        <div class="card" style="width: auto;">
+            <img src="/Posters/RetrieveImage/@Model.ID" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-text">Description Here</p>
+                <a href="#" class="btn btn-primary w-100">Buy</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        Detalles aqui
+    </div>
+</div>

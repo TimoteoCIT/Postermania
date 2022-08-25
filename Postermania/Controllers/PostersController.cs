@@ -128,9 +128,11 @@ namespace Postermania.Controllers
             return View(items);
         }
 
-        public ActionResult Buy()
+        public ActionResult Buy(int id)
         {
-            return View();
+            var poster = db.Posters.Find(id);
+
+            return View(poster);
         }
 
         [HttpPost, ActionName("Buy")]
