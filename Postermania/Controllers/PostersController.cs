@@ -74,6 +74,19 @@ namespace Postermania.Controllers
             HttpPostedFileBase image = Request.Files["ImageData"];
             poster.Image = Util.Images.ReadImage(image);
 
+            var dimIds = db.Dimensions.Select(x => x.ID).ToList();
+
+            List<Dimension> selectedDimensions = new List<Dimension>();
+            foreach (var dimId in dimIds)
+            {
+                if (Request.Form[$"{dimId}"] != null)
+                {
+                    selectedDimensions.Add(db.Dimensions.Find(dimId));
+                }
+            }
+
+            poster.Dimensions = selectedDimensions;
+
             if (poster.ID == 0)
                 db.Posters.Add(poster);
             else
