@@ -98,7 +98,7 @@ namespace Postermania.Controllers
                 posterDb.BasePrice = poster.BasePrice;
                 posterDb.PricePerCm = poster.PricePerCm;
                 posterDb.Type = poster.Type;
-                posterDb.Image = poster.Image;
+                if (poster.Image.Length != 0) posterDb.Image = poster.Image;
                 posterDb.Dimensions = poster.Dimensions;
             }
 
