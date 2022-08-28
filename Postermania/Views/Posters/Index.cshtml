@@ -4,6 +4,13 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+    .crudPosterImg {
+        max-width: 15rem;
+        max-height: 15rem;
+    }
+</style>
+
 <h2>Index</h2>
 
 <p>
@@ -54,7 +61,7 @@
                 }
             </td>
             <td>
-                <img src="/Posters/RetrieveImage/@item.ID" />
+                <img class="crudPosterImg" src="/Posters/RetrieveImage/@item.ID" />
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
