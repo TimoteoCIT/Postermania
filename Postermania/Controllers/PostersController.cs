@@ -130,7 +130,7 @@ namespace Postermania.Controllers
 
         public ActionResult Buy(int id)
         {
-            var poster = db.Posters.Find(id);
+            var poster = db.Posters.Include(x => x.Dimensions).FirstOrDefault(x => x.ID == id);
 
             return View(poster);
         }

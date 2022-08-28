@@ -18,6 +18,16 @@
     </div>
 
     <div class="col">
-        Detalles aqui
+        <h3>Base Price:</h3>
+        <p>@Model.BasePrice</p>
+
+        <h3>Price per cm:</h3>
+        <p>@Model.PricePerCm</p>
+
+        <h3>Available sizes:</h3>
+        @foreach (var dimension in Model.Dimensions)
+        {
+            <p>@dimension.Name</p>
+        }
     </div>
 </div>
