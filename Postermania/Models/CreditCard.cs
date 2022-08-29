@@ -17,7 +17,6 @@ namespace Postermania.Models
     {
         public int ID { get; set; }
         public CardBrand Brand { get; set; }
-        [CreditCardAttribute]
         public int Number { get; set; }
         public int Secret { get; set; }
     }
