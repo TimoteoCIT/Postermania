@@ -5,29 +5,37 @@
 
 <h2>Detail</h2>
 
-<div class="row">
-    <div class="col">
-        <div class="card" style="width: auto;">
-            <img src="/Posters/RetrieveImage/@Model.ID" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">@Model.Name</h5>
-                <p class="card-text">@Model.Description</p>
-                <a href="#" class="btn btn-primary w-100">Buy</a>
+@using (Html.BeginForm("Buy", "Posters", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width: auto;">
+                <img src="/Posters/RetrieveImage/@Model.ID" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-text">@Model.Description</p>
+                    <button type="submit" href="#" class="btn btn-primary w-100">Buy</button>
+                </div>
             </div>
         </div>
+
+        <div class="col">
+            <h3>Base Price:</h3>
+            <p>@Model.BasePrice</p>
+
+            <h3>Price per cm:</h3>
+            <p>@Model.PricePerCm</p>
+
+            <h3>Available sizes:</h3>
+            @foreach (var dimension in Model.Dimensions)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="RadioInput" value="@dimension.ID" id="@dimension.ID">
+                    <label class="form-check-label" for="@dimension.ID">
+                        @dimension.Name
+                    </label>
+                </div>
+            }
+        </div>
     </div>
-
-    <div class="col">
-        <h3>Base Price:</h3>
-        <p>@Model.BasePrice</p>
-
-        <h3>Price per cm:</h3>
-        <p>@Model.PricePerCm</p>
-
-        <h3>Available sizes:</h3>
-        @foreach (var dimension in Model.Dimensions)
-        {
-            <p>@dimension.Name</p>
-        }
-    </div>
-</div>
+}
