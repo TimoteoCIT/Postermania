@@ -22,6 +22,7 @@ namespace Postermania.Models
         public decimal BasePrice { get; set; }
         [Display(Name = "Price per CM")]
         public decimal PricePerCm { get; set; }
+        public string Description { get; set; }
         public ItemType Type { get; set; }
         public byte[] Image { get; set; }
         public List<Dimension> Dimensions { get; set; }

@@ -75,7 +75,6 @@ namespace Postermania.Controllers
             poster.Image = Util.Images.ReadImage(image);
 
             var dimIds = db.Dimensions.Select(x => x.ID).ToList();
-
             List<Dimension> selectedDimensions = new List<Dimension>();
             foreach (var dimId in dimIds)
             {
@@ -84,7 +83,6 @@ namespace Postermania.Controllers
                     selectedDimensions.Add(db.Dimensions.Find(dimId));
                 }
             }
-
             poster.Dimensions = selectedDimensions;
 
             if (poster.ID == 0)
@@ -94,6 +92,7 @@ namespace Postermania.Controllers
                 var posterDb = db.Posters.FirstOrDefault(x => x.ID == poster.ID);
                 posterDb.ID = poster.ID;
                 posterDb.Name = poster.Name;
+                posterDb.Description = poster.Description;
                 posterDb.BasePrice = poster.BasePrice;
                 posterDb.BasePrice = poster.BasePrice;
                 posterDb.PricePerCm = poster.PricePerCm;

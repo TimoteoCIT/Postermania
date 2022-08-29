@@ -26,6 +26,14 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.Poster.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Poster.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Poster.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.Poster.BasePrice, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Poster.BasePrice, new { htmlAttributes = new { @class = "form-control" } })
@@ -55,7 +63,7 @@
             @foreach (var dimension in Model.Dimensions)
             {
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="true" id="@dimension.ID" name="@dimension.ID"/>
+                    <input class="form-check-input" type="checkbox" value="true" id="@dimension.ID" name="@dimension.ID" />
                     <label class="form-check-label" for="@dimension.ID">@dimension.Name</label>
                 </div>
             }
@@ -65,7 +73,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Poster.Image, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="file" name="ImageData" id="ImageData" class="form-control"/>
+            <input type="file" name="ImageData" id="ImageData" class="form-control" />
             @Html.ValidationMessageFor(model => model.Poster.Image, "", new { @class = "text-danger" })
         </div>
     </div>

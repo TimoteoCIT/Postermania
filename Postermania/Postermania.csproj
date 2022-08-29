@@ -143,6 +143,10 @@
     <Compile Include="Migrations\202208081853523_Password To Plaintex.designer.cs">
       <DependentUpon>202208081853523_Password To Plaintex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208290005386_Add description to poster.cs" />
+    <Compile Include="Migrations\202208290005386_Add description to poster.designer.cs">
+      <DependentUpon>202208290005386_Add description to poster.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CreditCard.cs" />
     <Compile Include="Models\Dimension.cs" />
@@ -209,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202208081853523_Password To Plaintex.resx">
       <DependentUpon>202208081853523_Password To Plaintex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208290005386_Add description to poster.resx">
+      <DependentUpon>202208290005386_Add description to poster.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
